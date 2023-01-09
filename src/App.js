@@ -1,22 +1,35 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { useEffect, useState } from 'react';
+
+const client = new W3CWebSocket('ws://127.0.0.1:4000');
+window.client = client;
 
 function App() {
+  const [products, setProducts] = useState(['Initial state']);
+
+  useEffect(() => {
+    client.onopen = () => {
+      console.log('WebSocket Client Connected');
+    };
+    client.onmessage = (message) => {
+      // console.log(message.data);
+      setProducts((products) => [...products, message.data]);
+    };
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        {
+          products && products.map((product) => (
+            <div key={product}>
+              { product }
+            </div>
+          ))
+        }
       </header>
     </div>
   );

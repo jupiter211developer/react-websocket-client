@@ -34,10 +34,8 @@ function App() {
             </div>
           ))
         }
-      </header>
-      <div className="content">
         <button onClick={sendMessage}>Send Message</button>
-      </div>
+      </header>
     </div>
   );
 }

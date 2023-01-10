@@ -19,6 +19,10 @@ function App() {
     };
   }, []);
 
+  function sendMessage() {
+    client.send('message')
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -30,6 +34,7 @@ function App() {
             </div>
           ))
         }
+        <button onClick={sendMessage}>Send Message</button>
       </header>
     </div>
   );
